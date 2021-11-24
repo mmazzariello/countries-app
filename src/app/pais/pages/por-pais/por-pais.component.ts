@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Country } from '../../intefaces/pais.interface';
 import { PaisService } from '../../services/pais.service';
 
 @Component({
@@ -11,18 +12,23 @@ export class PorPaisComponent implements OnInit {
 
   termino: string= '';
   hayError: boolean = false;
+  paises: Country[] = [];
 
   constructor(private paisService: PaisService) { }
 
-  buscar() {
+  buscar( termino: string ) {
     this.hayError = false;
-    console.log(this.termino)
+
+    //Aca esroy diciendo que el this.termino es igual al termino que recibo como argumento
+    this.termino = termino;
 
     this.paisService.buscarPais(this.termino)
-      .subscribe(resp => {
-        console.log(resp)
+      .subscribe((paises) => {
+        console.log(paises)
+        this.paises = paises;
       }, (err) => {
         this.hayError = true;
+        this.paises = [];
       })
   }
 
