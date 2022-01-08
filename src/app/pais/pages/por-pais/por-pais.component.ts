@@ -5,31 +5,31 @@ import { PaisService } from '../../services/pais.service';
 @Component({
   selector: 'app-por-pais',
   templateUrl: './por-pais.component.html',
-  styles: [
-  ]
+  styles: [],
 })
 export class PorPaisComponent implements OnInit {
-
-  termino: string= '';
+  termino: string = '';
   hayError: boolean = false;
   paises: Country[] = [];
 
-  constructor(private paisService: PaisService) { }
+  constructor(private paisService: PaisService) {}
 
-  buscar( termino: string ) {
+  buscar(termino: string) {
     this.hayError = false;
 
     //Aca esroy diciendo que el this.termino es igual al termino que recibo como argumento
     this.termino = termino;
 
-    this.paisService.buscarPais(this.termino)
-      .subscribe((paises) => {
-        console.log(paises)
+    this.paisService.buscarPais(this.termino).subscribe(
+      (paises) => {
+        console.log(paises);
         this.paises = paises;
-      }, (err) => {
+      },
+      (err) => {
         this.hayError = true;
         this.paises = [];
-      })
+      }
+    );
   }
 
   sugerencias(termino: string) {
@@ -37,7 +37,5 @@ export class PorPaisComponent implements OnInit {
     //TODO: crear sugerencias
   }
 
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }
